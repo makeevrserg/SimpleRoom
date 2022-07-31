@@ -11,7 +11,12 @@ interface AnnotationDatabaseDAO {
 
     @Query("SELECT * FROM :table")
     fun createTable()
+
     @Insert
     fun insertUser(user: User): IProxyTask<Long>
+
+
+    @Insert
+    fun insertUser(user: List<User>): IProxyTask<Long>
 }
 
