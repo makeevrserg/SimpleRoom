@@ -1,8 +1,8 @@
 package com.astrainteractive.astratemplate.auto_module.dao
 
-import api.ColumnInfo
-import api.Entity
-import api.PrimaryKey
+import room.ColumnInfo
+import room.Entity
+import room.PrimaryKey
 
 @Entity(User.TABLE)
 data class User(

@@ -1,8 +1,8 @@
 package com.astrainteractive.astratemplate.auto_module.dao
 
-import api.Insert
-import api.Param
-import api.Query
+import room.Insert
+import room.Param
+import room.Query
 import com.astrainteractive.astratemplate.auto_module.api.IProxyTask
 
 interface AnnotationDatabaseDAO {

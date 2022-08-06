@@ -1,5 +1,7 @@
 package com.astrainteractive.astratemplate.auto_module.api
 
+import kotlinx.coroutines.CoroutineScope
+
 /**
  * Wrapper to create async calls
  */

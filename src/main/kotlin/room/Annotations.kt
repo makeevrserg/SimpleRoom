@@ -1,4 +1,4 @@
-package api
+package room
 
 @Target(AnnotationTarget.FUNCTION)
 @Retention(AnnotationRetention.RUNTIME)

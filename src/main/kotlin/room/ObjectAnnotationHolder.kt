@@ -1,8 +1,8 @@
 package com.astrainteractive.astratemplate.auto_module.api
 
-import api.ColumnInfo
-import api.Entity
-import api.PrimaryKey
+import room.ColumnInfo
+import room.Entity
+import room.PrimaryKey
 import java.lang.reflect.Field
 import java.lang.reflect.Parameter
 

@@ -1,4 +1,4 @@
-package api
+package room
 
 import com.astrainteractive.astratemplate.auto_module.api.*
 import java.lang.reflect.*
