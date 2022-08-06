@@ -1,6 +1,6 @@
 package com.astrainteractive.astratemplate.auto_module.retrofit
 
-import java.lang.reflect.InvocationHandler
+import com.astrainteractive.astratemplate.auto_module.api.IProxyTask
 import java.lang.reflect.Proxy
 
 class Retrofit(private val configuration: Configuration.() -> Unit) {
@@ -8,6 +8,7 @@ class Retrofit(private val configuration: Configuration.() -> Unit) {
         var baseUrl: String = "",
         var headers: () -> Map<String, String> = { emptyMap() },
         var converterFactory: (String?, Class<*>) -> Any? = { _, _ -> },
+        var decoderFactory: (Any?) -> String = { "" },
     )
 
     @Suppress("UNCHECKED_CAST")

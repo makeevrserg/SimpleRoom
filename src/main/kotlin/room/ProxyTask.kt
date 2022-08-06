@@ -11,3 +11,4 @@ interface IProxyTask<out T> {
 }
 
 class ProxyTask<T>(override val block: suspend () -> T?) : IProxyTask<T>
+data class Response<T>(val message: String, val code: Int, val response: T?)

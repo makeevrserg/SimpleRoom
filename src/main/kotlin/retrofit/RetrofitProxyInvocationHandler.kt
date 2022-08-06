@@ -2,6 +2,7 @@ package com.astrainteractive.astratemplate.auto_module.retrofit
 
 import com.astrainteractive.astratemplate.auto_module.api.*
 import org.jetbrains.kotlin.com.google.gson.Gson
+import java.io.OutputStreamWriter
 import java.lang.reflect.*
 import java.net.HttpURLConnection
 import java.net.URL
@@ -47,21 +48,39 @@ class RetrofitProxyInvocationHandler(private val configuration: Retrofit.Configu
         ) {
             "${it.second.field}=${it.first}"
         }
+        val body = annotationsToParam(annotationWithIndex<Body>(method.parameterAnnotations), args).firstOrNull()
 
-
-        val _url = configuration.baseUrl + path + query
-        println("URL = $_url")
-        val url = URL(_url)
         return ProxyTask {
+            val url = URL(configuration.baseUrl + path + query)
             val connection = url.openConnection() as HttpURLConnection
             if (get != null)
                 connection.requestMethod = Get.METHOD_NAME
             configuration.headers().forEach(connection::setRequestProperty)
-            val json = connection.url.readText()
+            body?.let {
+                connection.doOutput = true
+                connection.outputStream.also { os ->
+                    OutputStreamWriter(os, "UTF-8").apply {
+                        write(configuration.decoderFactory(it.first))
+                        flush()
+                        close()
+                    }
+                    os.close()
+                }
+            }
 
-            val name = (method.genericReturnType as ParameterizedType).actualTypeArguments[0].fullPackageName
+            val json = connection.run {
+                connect()
+                val json = this.url.readText()
+                disconnect()
+                json
+            }
+            val name =
+                ((method.genericReturnType as ParameterizedType).actualTypeArguments[0] as ParameterizedType).actualTypeArguments[0].fullPackageName
             val clazz = Class.forName(name)
-            configuration.converterFactory.invoke(json, clazz)
+            val decoded = configuration.converterFactory.invoke(json, clazz)
+            val code = connection.responseCode
+            val message = connection.responseMessage
+            Response(message, code, decoded)
         }
     }
 

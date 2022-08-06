@@ -21,6 +21,7 @@ fun main() {
         this.converterFactory = { json, clazz ->
             json?.let { Gson().fromJson(json, clazz) }
         }
+        this.decoderFactory = Gson()::toJson
     }.create(RetrofitDAO::class.java)
     runBlocking { println(retrofit.getApi().await()) }
     runBlocking { println(retrofit.getCharacters().await()) }

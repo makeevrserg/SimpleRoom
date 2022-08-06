@@ -1,6 +1,7 @@
 package com.astrainteractive.astratemplate.auto_module.retrofit
 
 import com.astrainteractive.astratemplate.auto_module.api.ProxyTask
+import com.astrainteractive.astratemplate.auto_module.api.Response
 import retrofit.models.CharacterRequest
 
 data class Api(
@@ -11,7 +12,7 @@ data class Api(
 
 interface RetrofitDAO {
     @Get("api")
-    fun getApi(): ProxyTask<Api>
+    fun getApi(): ProxyTask<Response<Api>>
 
 
     @Get("api/character")
@@ -19,5 +20,5 @@ interface RetrofitDAO {
         nonAnnotated: Any = "",
         @Query("count") count: Int = 1,
         @Query("page") page: Int = 2,
-    ): ProxyTask<CharacterRequest>
+    ): ProxyTask<Response<CharacterRequest>>
 }

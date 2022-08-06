@@ -7,7 +7,9 @@ annotation class Get(val path: String) {
         const val METHOD_NAME = "GET"
     }
 }
-
 @Target(AnnotationTarget.VALUE_PARAMETER)
 @Retention(AnnotationRetention.RUNTIME)
 annotation class Query(val field: String)
+@Target(AnnotationTarget.VALUE_PARAMETER)
+@Retention(AnnotationRetention.RUNTIME)
+annotation class Body
